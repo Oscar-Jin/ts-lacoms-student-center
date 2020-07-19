@@ -1,3 +1,8 @@
+import { Firestore } from "../firebase/firestore";
+import { store } from "../redux/store";
+import { Action } from "../redux/reducer";
+import { LessonName, InstructorName, TimeString } from "./Timetable";
+
 export class Lesson {
   constructor(
     public year: number,
@@ -7,10 +12,10 @@ export class Lesson {
     public minute: number,
 
     public iso8601: string,
-    public timeString: string,
+    public timeString: TimeString,
 
-    public lessonName: string,
-    public instructorName: string,
+    public lessonName: LessonName,
+    public instructorName: InstructorName,
     public capacity: number,
     public regularsOnly: boolean,
 
@@ -20,7 +25,7 @@ export class Lesson {
     public updatedOn: string,
     public createdBy: string,
     public updatedBy: string,
-    public doctype: string,
+    public doctype: "lesson",
     public id: string
   ) {}
 
@@ -45,24 +50,19 @@ export class Lesson {
       lesson.id
     );
   }
-}
 
-export const sampleLesson = new Lesson(
-  2020,
-  7,
-  18,
-  13,
-  0,
-  "2020-07-18",
-  "13:00",
-  "GHI",
-  "神崎",
-  3,
-  false,
-  new Date().toISOString(),
-  new Date().toISOString(),
-  "lacoms",
-  "lacoms",
-  "lesson",
-  "randomID"
-);
+  static cloudSync() {
+    Firestore.lessons
+      .orderBy("iso8601", "asc")
+      .orderBy("timeString", "asc")
+      .get()
+      .then(qs => {
+        const lessons: Lesson[] = [];
+        qs.forEach(doc => lessons.push(Lesson.load(doc.data() as Lesson)));
+        store.dispatch({
+          type: Action.SYNC_LESSONS,
+          payload: lessons,
+        });
+      });
+  }
+}

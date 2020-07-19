@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LoginPage from "./page/LoginPage";
 import StudentPage from "./page/StudentPage";
+import RedirectPage from "./page/RedirectPage";
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
         <Switch>
           <Route path={Path.login} component={LoginPage} />
           <Route path={Path.student} component={StudentPage} />
+          <Route path={Path.redirect} component={RedirectPage} />
           {/*  DEFAULT: -> {LoginPage} */}
           <Route component={LoginPage} />
         </Switch>

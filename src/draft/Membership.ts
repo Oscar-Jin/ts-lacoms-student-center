@@ -1,5 +1,7 @@
 import last from "lodash/last";
 import { Firestore } from "../firebase/firestore";
+import { store } from "../redux/store";
+import { Action } from "../redux/reducer";
 
 export enum MembershipsStatus {
   active = "active",
@@ -50,12 +52,29 @@ export class Membership {
     );
   }
 
+  static cloudSyncSelect(uid: string) {
+    Firestore.memberships
+      .where("uid", "==", uid)
+      .orderBy("iso8601", "asc")
+      .get()
+      .then(qs => {
+        const memberships: Membership[] = [];
+        qs.forEach(doc =>
+          memberships.push(Membership.load(doc.data() as Membership))
+        );
+        store.dispatch({
+          type: Action.SYNC_MEMBERSHIPS,
+          payload: memberships,
+        });
+      });
+  }
+
   static findLatest(
     lastName: string,
     firstName: string,
     queryType: "hiragana" | "kanji" | "uid"
   ) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve: (value?: Membership) => void, reject) => {
       switch (queryType) {
         case "hiragana":
           Firestore.memberships
@@ -88,7 +107,7 @@ export class Membership {
 //  ─────────────────────────────────────────────────────────── PRIVATE ───┐
 function getLatest(
   qs: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>,
-  resolve: (value?: unknown) => void,
+  resolve: (value?: Membership) => void,
   reject: (reason?: any) => void
 ) {
   const documents: any[] = [];

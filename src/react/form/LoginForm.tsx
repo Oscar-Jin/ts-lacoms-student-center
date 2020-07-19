@@ -6,6 +6,12 @@ import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import { isHiragana } from "../../toolbox/isHiragana";
 import { Membership } from "../../draft/Membership";
+import { User } from "../../draft/User";
+import { Lesson } from "../../draft/Lesson";
+import { Ticket } from "../../draft/Ticket";
+import { Reservation } from "../../draft/Reservation";
+import { Timetable } from "../../draft/Timetable";
+import { useHistory } from "react-router-dom";
 
 const alert = {
   heading: null,
@@ -22,6 +28,8 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [studentFound, setStudentFound] = useState(true);
 
+  const history = useHistory();
+
   const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -33,10 +41,19 @@ const LoginForm = () => {
       setStudentFound(true);
       Membership.findLatest(lastName, firstName, "hiragana")
         .then(latest => {
-          console.log(latest);
+          // cloud sync
+          Membership.cloudSyncSelect(latest.uid);
+          Ticket.cloudSyncSelect(latest.uid);
+          Lesson.cloudSync();
+          Reservation.cloudSync();
+          Timetable.cloudSync();
+          //
+          User.update(new User(latest.uid));
           setLoading(false);
+          history.push("/student/" + latest.uid);
         })
         .catch(error => {
+          User.update(new User());
           setStudentFound(false);
           setLoading(false);
         });
