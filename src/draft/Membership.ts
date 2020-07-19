@@ -53,7 +53,7 @@ export class Membership {
   static findLatest(
     lastName: string,
     firstName: string,
-    queryType: "hiragana" | "kanji"
+    queryType: "hiragana" | "kanji" | "uid"
   ) {
     return new Promise((resolve, reject) => {
       switch (queryType) {
@@ -69,6 +69,13 @@ export class Membership {
           Firestore.memberships
             .where("lastName_kanji", "==", lastName)
             .where("firstName_kanji", "==", firstName)
+            .orderBy("iso8601", "asc")
+            .get()
+            .then(qs => getLatest(qs, resolve, reject));
+          break;
+        case "uid":
+          Firestore.memberships
+            .where("uid", "==", lastName)
             .orderBy("iso8601", "asc")
             .get()
             .then(qs => getLatest(qs, resolve, reject));

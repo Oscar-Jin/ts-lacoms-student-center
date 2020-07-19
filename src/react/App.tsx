@@ -1,16 +1,30 @@
 import React from "react";
-import { Membership } from "../draft/Membership";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import LoginPage from "./page/LoginPage";
+import StudentPage from "./page/StudentPage";
 
 const App = () => {
-  // Membership.findLatest("あしあ", "いちごうき", "hiragana").then(latest =>
-  //   console.log(latest)
-  // );
-
-  return <div className="App">App</div>;
+  return (
+    <div className="App" style={{ height: "100vh" }}>
+      <BrowserRouter>
+        <Switch>
+          <Route path={Path.login} component={LoginPage} />
+          <Route path={Path.student} component={StudentPage} />
+          {/*  DEFAULT: -> {LoginPage} */}
+          <Route component={LoginPage} />
+        </Switch>
+      </BrowserRouter>
+    </div>
+  );
 };
 
-//  ───────────────────────────────────────────────────────── FIRESTORE ───┐
-
+//  ────────────────────────────────────────────────────────────── PATH ───┐
+export const Path = {
+  home: "/",
+  login: "/login",
+  student: "/student/:uid",
+  redirect: "/redirect/:uid",
+};
 // <───────────────────────────────────────────────────────────────────────┘
 
 export default App;
