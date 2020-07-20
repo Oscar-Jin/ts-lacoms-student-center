@@ -1,7 +1,11 @@
+import short from "short-uuid";
+import moment from "moment";
 import { Firestore } from "../firebase/firestore";
 import { store } from "../redux/store";
 import { Action } from "../redux/reducer";
 import { TimeString, InstructorName, LessonName } from "./Timetable";
+import { Ticket } from "./Ticket";
+import { Lesson } from "./Lesson";
 
 export enum ReservationState {
   reserved = "reserved",
@@ -92,5 +96,95 @@ export class Reservation {
           payload: reservations,
         });
       });
+  }
+
+  static cloudCreate(
+    ticket: Ticket,
+    lesson: Lesson,
+    note: string,
+    isRegulars: boolean,
+    isNewStudent: boolean,
+    isFirstLesson: boolean
+  ) {
+    const {
+      lastName_hiragana,
+      firstName_hiragana,
+      lastName_kanji,
+      firstName_kanji,
+      uid,
+    } = ticket;
+    const {
+      lessonName,
+      instructorName,
+      iso8601,
+      timeString,
+      id: lessonID,
+    } = lesson;
+
+    const targetDate = moment(iso8601 + " " + timeString);
+
+    const reservation = new Reservation(
+      lastName_hiragana,
+      firstName_hiragana,
+      lastName_kanji,
+      firstName_kanji,
+      uid,
+      lessonID,
+      targetDate.year(),
+      targetDate.month() + 1,
+      targetDate.date(),
+      targetDate.hour(),
+      targetDate.minute(),
+      iso8601,
+      timeString,
+      lessonName,
+      instructorName,
+      isNewStudent,
+      isFirstLesson,
+      isRegulars,
+      ReservationState.reserved,
+      note,
+      new Date().toISOString(),
+      new Date().toISOString(),
+      "student",
+      "student",
+      "reservation",
+      short.generate()
+    );
+
+    Firestore.reservations.doc(reservation.id).set(reservation.toObject());
+    // update ticked used on as well
+    ticket.cloudUpdateUsedOn(reservation.id);
+  }
+
+  public toObject() {
+    return {
+      lastName_hiragana: this.lastName_hiragana,
+      firstName_hiragana: this.firstName_hiragana,
+      lastName_kanji: this.lastName_kanji,
+      firstName_kanji: this.firstName_kanji,
+      uid: this.uid,
+      lessonID: this.lessonID,
+      year: this.year,
+      month: this.month,
+      date: this.date,
+      hour: this.hour,
+      minute: this.minute,
+      iso8601: this.iso8601,
+      timeString: this.timeString,
+      lessonName: this.lessonName,
+      instructorName: this.instructorName,
+      isNewStudent: this.isNewStudent,
+      isFirstLesson: this.isFirstLesson,
+      isRegulars: this.isRegulars,
+      state: this.state,
+      note: this.note,
+      createdOn: this.createdOn,
+      updatedOn: this.updatedOn,
+      createdBy: this.createdBy,
+      updatedBy: this.updatedBy,
+      doctype: this.doctype,
+      id: this.id,
+    };
   }
 }

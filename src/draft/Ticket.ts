@@ -70,4 +70,32 @@ export class Ticket {
         });
       });
   }
+
+  public cloudUpdateUsedOn(usedOn: string) {
+    this.usedOn = usedOn;
+    Firestore.tickets.doc(this.id).update(this.toObject());
+  }
+
+  public toObject() {
+    return {
+      lastName_hiragana: this.lastName_hiragana,
+      firstName_hiragana: this.firstName_hiragana,
+      lastName_kanji: this.lastName_kanji,
+      firstName_kanji: this.firstName_kanji,
+      uid: this.uid,
+      year: this.year,
+      month: this.month,
+      iso8601: this.iso8601,
+      type: this.type,
+      willExpire: this.willExpire,
+      expirationDate: this.expirationDate,
+      usedOn: this.usedOn,
+      createdOn: this.createdOn,
+      updatedOn: this.updatedOn,
+      createdBy: this.createdBy,
+      updatedBy: this.updatedBy,
+      doctype: this.doctype,
+      id: this.id,
+    };
+  }
 }

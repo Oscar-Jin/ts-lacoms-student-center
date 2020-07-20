@@ -1,10 +1,10 @@
 import React from "react";
 import moment from "moment";
-import ReservationCard from "../react/card/ReservationCard";
+import ReservationCard from "../card/ReservationCard";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { ReservationState } from "../draft/Reservation";
+import { RootState } from "../../redux/store";
+import { ReservationState } from "../../draft/Reservation";
 
 type Props = {
   monthSelect: "thisMonth" | "nextMonth";

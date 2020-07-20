@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
-import CardController from "../../control/CardController";
+import CardController from "../control/CardController";
+import ReservationController from "../control/ReservationController";
 
 type Props = {
   monthSelect: "thisMonth" | "nextMonth";
@@ -22,6 +23,8 @@ const ReservationModule: React.FC<Props> = props => {
           "月20日から可能となります）"}
       </small>
       <CardController monthSelect={monthSelect} />
+      <div className="p-3"></div>
+      <ReservationController monthSelect={monthSelect} />
     </div>
   );
 };
