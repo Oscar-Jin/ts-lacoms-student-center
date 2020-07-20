@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "LACOMS Student Center",
+  "name": "LACOMS Student Center 生徒専用アプリ",
   "icons": [
     {
       "src": "favicon.ico",
