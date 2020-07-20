@@ -32,15 +32,15 @@ const TimeTableView = props => {
     "土曜日",
     "日曜日",
   ];
-  const englishTitles = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  // const englishTitles = [
+  //   "Monday",
+  //   "Tuesday",
+  //   "Wednesday",
+  //   "Thursday",
+  //   "Friday",
+  //   "Saturday",
+  //   "Sunday",
+  // ];
 
   return (
     <div
@@ -71,9 +71,9 @@ const TimeTableView = props => {
               let timeStrings = ["XX:XX"];
               return (
                 <Tab eventKey={dayOfWeek} title={titles[index]} key={dayOfWeek}>
-                  <Table striped responsive size="sm" className="mt-3">
+                  <Table responsive size="sm" className="mt-3">
                     {/* <caption>{englishTitles[index]}</caption> */}
-                    <tbody>
+                    <tbody style={{ border: "none" }} className="text-muted">
                       {timetable[dayOfWeek] &&
                         timetable[dayOfWeek].map((schedule, i) => {
                           const {
@@ -87,14 +87,46 @@ const TimeTableView = props => {
                           timeStrings.push(timeString);
                           return (
                             <tr key={id}>
-                              <td>{isSame ? "" : timeString}</td>
+                              <td
+                                style={
+                                  isSame
+                                    ? { border: "none" }
+                                    : {
+                                        borderTop: "1px dashed lightgray",
+                                        color: "#404040",
+                                      }
+                                }
+                              >
+                                {isSame ? "" : timeString}
+                              </td>
                               <td
                                 className={"td-" + checkLessonType(lessonName)}
+                                style={
+                                  isSame
+                                    ? { border: "none" }
+                                    : { borderTop: "1px dashed lightgray" }
+                                }
                               >
                                 {lessonName}
                               </td>
-                              <td>{instructorName}</td>
-                              <td>{regularsOnly ? "(レギュラー限定)" : ""}</td>
+                              <td
+                                style={
+                                  isSame
+                                    ? { border: "none" }
+                                    : { borderTop: "1px dashed lightgray" }
+                                }
+                              >
+                                {instructorName}
+                              </td>
+                              <td
+                                style={
+                                  isSame
+                                    ? { border: "none" }
+                                    : { borderTop: "1px dashed lightgray" }
+                                }
+                              >
+                                {regularsOnly ? "(レギュラー限定)" : ""}
+                              </td>
                             </tr>
                           );
                         })}
