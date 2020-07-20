@@ -56,8 +56,7 @@ export class Membership {
     Firestore.memberships
       .where("uid", "==", uid)
       .orderBy("iso8601", "asc")
-      .get()
-      .then(qs => {
+      .onSnapshot(qs => {
         const memberships: Membership[] = [];
         qs.forEach(doc =>
           memberships.push(Membership.load(doc.data() as Membership))
@@ -81,23 +80,20 @@ export class Membership {
             .where("lastName_hiragana", "==", lastName)
             .where("firstName_hiragana", "==", firstName)
             .orderBy("iso8601", "asc")
-            .get()
-            .then(qs => getLatest(qs, resolve, reject));
+            .onSnapshot(qs => getLatest(qs, resolve, reject));
           break;
         case "kanji":
           Firestore.memberships
             .where("lastName_kanji", "==", lastName)
             .where("firstName_kanji", "==", firstName)
             .orderBy("iso8601", "asc")
-            .get()
-            .then(qs => getLatest(qs, resolve, reject));
+            .onSnapshot(qs => getLatest(qs, resolve, reject));
           break;
         case "uid":
           Firestore.memberships
             .where("uid", "==", lastName)
             .orderBy("iso8601", "asc")
-            .get()
-            .then(qs => getLatest(qs, resolve, reject));
+            .onSnapshot(qs => getLatest(qs, resolve, reject));
           break;
       }
     });

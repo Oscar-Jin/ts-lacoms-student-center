@@ -61,8 +61,7 @@ export class Ticket {
     Firestore.tickets
       .where("uid", "==", uid)
       .orderBy("iso8601", "asc")
-      .get()
-      .then(qs => {
+      .onSnapshot(qs => {
         const tickets: Ticket[] = [];
         qs.forEach(doc => tickets.push(Ticket.load(doc.data() as Ticket)));
         store.dispatch({

@@ -55,8 +55,7 @@ export class Lesson {
     Firestore.lessons
       .orderBy("iso8601", "asc")
       .orderBy("timeString", "asc")
-      .get()
-      .then(qs => {
+      .onSnapshot(qs => {
         const lessons: Lesson[] = [];
         qs.forEach(doc => lessons.push(Lesson.load(doc.data() as Lesson)));
         store.dispatch({

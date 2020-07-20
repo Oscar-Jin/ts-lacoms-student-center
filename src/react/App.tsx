@@ -9,6 +9,8 @@ const App = () => {
     <div className="App" style={{ height: "100vh" }}>
       <BrowserRouter>
         <Switch>
+          {/* <Route component={StudentPage} /> */}
+
           <Route path={Path.login} component={LoginPage} />
           <Route path={Path.student} component={StudentPage} />
           <Route path={Path.redirect} component={RedirectPage} />

@@ -117,18 +117,15 @@ export class Timetable {
   }
 
   static cloudSync() {
-    Firestore.timetables
-      .orderBy("iso8601", "asc")
-      .get()
-      .then(qs => {
-        const timetables: Timetable[] = [];
-        qs.forEach(doc =>
-          timetables.push(Timetable.load(doc.data() as Timetable))
-        );
-        store.dispatch({
-          type: Action.SYNC_TIMETABLES,
-          payload: timetables,
-        });
+    Firestore.timetables.orderBy("iso8601", "asc").onSnapshot(qs => {
+      const timetables: Timetable[] = [];
+      qs.forEach(doc =>
+        timetables.push(Timetable.load(doc.data() as Timetable))
+      );
+      store.dispatch({
+        type: Action.SYNC_TIMETABLES,
+        payload: timetables,
       });
+    });
   }
 }

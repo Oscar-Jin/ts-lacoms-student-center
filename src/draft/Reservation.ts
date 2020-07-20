@@ -82,8 +82,7 @@ export class Reservation {
     Firestore.reservations
       .orderBy("iso8601", "asc")
       .orderBy("timeString", "asc")
-      .get()
-      .then(qs => {
+      .onSnapshot(qs => {
         const reservations: Reservation[] = [];
         qs.forEach(doc =>
           reservations.push(Reservation.load(doc.data() as Reservation))

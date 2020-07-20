@@ -41,6 +41,7 @@ const LoginForm = () => {
       setStudentFound(true);
       Membership.findLatest(lastName, firstName, "hiragana")
         .then(latest => {
+          User.update(new User(latest.uid));
           // cloud sync
           Membership.cloudSyncSelect(latest.uid);
           Ticket.cloudSyncSelect(latest.uid);
@@ -48,7 +49,6 @@ const LoginForm = () => {
           Reservation.cloudSync();
           Timetable.cloudSync();
           //
-          User.update(new User(latest.uid));
           setLoading(false);
           history.push("/student/" + latest.uid);
         })

@@ -7,7 +7,7 @@ import { Path } from "../App";
 
 const NavBar = () => {
   return (
-    <Navbar bg="light">
+    <Navbar bg="light" className="shadow-sm">
       <Container>
         <Navbar.Brand href={Path.home}>
           <img src={logo} width="29" height="29" alt="logo" />

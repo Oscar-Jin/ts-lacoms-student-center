@@ -6,7 +6,7 @@ import LoginForm from "../form/LoginForm";
 const LoginPage = () => {
   return (
     <div className="beach-sdie h-100">
-      <Container className="h-100 dev-blue">
+      <Container className="h-100">
         <FlexCenter>
           <LoginForm />
         </FlexCenter>
