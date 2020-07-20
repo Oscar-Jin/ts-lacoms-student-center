@@ -24,7 +24,7 @@ export class Ticket {
     public willExpire: boolean,
     public expirationDate: string,
 
-    public usedOn: string, // => reservation.id
+    public usedOn: string | null, // => reservation.id
 
     public createdOn: string,
     public updatedOn: string,
@@ -71,7 +71,7 @@ export class Ticket {
       });
   }
 
-  public cloudUpdateUsedOn(usedOn: string) {
+  public cloudUpdateUsedOn(usedOn: string | null) {
     this.usedOn = usedOn;
     Firestore.tickets.doc(this.id).update(this.toObject());
   }

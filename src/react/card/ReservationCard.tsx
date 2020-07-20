@@ -3,14 +3,17 @@ import moment from "moment";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { ReservationState, Reservation } from "../../draft/Reservation";
+import { showModal } from "../module/ReservationModule";
 
 type Props = {
   reservation: Reservation;
   monthSelect: "thisMonth" | "nextMonth";
+  show: showModal;
+  setShow: React.Dispatch<React.SetStateAction<showModal>>;
 };
 
 const ReservationCard: React.FC<Props> = props => {
-  const { reservation, monthSelect } = props;
+  const { reservation, monthSelect, setShow } = props;
 
   return (
     <Card
@@ -42,6 +45,13 @@ const ReservationCard: React.FC<Props> = props => {
           size="sm"
           className="shadow-sm"
           hidden={reservation.state !== ReservationState.reserved}
+          onClick={() =>
+            setShow({
+              reservationModal: false,
+              cancellationModal: true,
+              reservationID: reservation.id,
+            })
+          }
         >
           <small
             style={{

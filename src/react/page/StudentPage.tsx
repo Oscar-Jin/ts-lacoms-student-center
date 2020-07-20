@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import NavBar from "../nav/NavBar";
 import last from "lodash/last";
@@ -11,6 +10,7 @@ import ReservationModule from "../module/ReservationModule";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import TimeTableView from "../component/TimeTableView";
 
 const Name = styled.h1`
   display: inline-block;
@@ -28,6 +28,8 @@ const StudentPage = () => {
   const history = useHistory();
   const userUID = useSelector((state: RootState) => state.user.uid);
 
+  const [monthSelect, setMonthSelect] = useState("thisMonth");
+
   useEffect(() => {
     if (!userUID) {
       history.push("/redirect/" + uid);
@@ -38,14 +40,19 @@ const StudentPage = () => {
   const latest = last(userMemberships);
 
   return (
-    <div>
+    <div className="sky-dive" style={{ minHeight: "100%" }}>
       <NavBar />
-      <Container className="py-4">
+      <Container className="py-5 bg-white shadow">
         <Name>{latest?.lastName_kanji}</Name>
         <Name>{latest?.firstName_kanji}</Name>
         {display(latest?.status)}
-        <div className="p-2" />
-        <Tabs defaultActiveKey="thisMonth">
+        <div className="p-2 mt-3" />
+        <Tabs
+          defaultActiveKey="thisMonth"
+          onSelect={eventKey => {
+            setMonthSelect(eventKey!);
+          }}
+        >
           <Tab eventKey="thisMonth" title="今月">
             <ReservationModule monthSelect="thisMonth" />
           </Tab>
@@ -53,6 +60,9 @@ const StudentPage = () => {
             <ReservationModule monthSelect="nextMonth" />
           </Tab>
         </Tabs>
+      </Container>
+      <Container className="mt-3 py-5 px-3 ">
+        <TimeTableView monthSelect={monthSelect} />
       </Container>
     </div>
   );

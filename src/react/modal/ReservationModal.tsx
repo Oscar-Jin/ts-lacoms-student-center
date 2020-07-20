@@ -25,6 +25,7 @@ import {
   earliestTimeFirstLateLast,
   alphabetAfirstZlast,
 } from "../../toolbox/sort";
+import { showModal } from "../module/ReservationModule";
 
 export const style = {
   content: {
@@ -38,15 +39,15 @@ export const style = {
 };
 
 type Props = {
-  showModal: boolean;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  thisMonth: string;
+  show: showModal;
+  setShow: React.Dispatch<React.SetStateAction<showModal>>;
+  targetMonth: string;
   ticket: Ticket;
 };
 
 const ReservationModal: React.FC<Props> = props => {
   const { uid } = useParams();
-  const { showModal, setShowModal, thisMonth, ticket } = props;
+  const { show, setShow, targetMonth, ticket } = props;
 
   const memberships = useSelector((state: RootState) => state.memberships);
   const reservations = useSelector((state: RootState) => state.reservations);
@@ -82,7 +83,11 @@ const ReservationModal: React.FC<Props> = props => {
     setIsSeatAvailable(false);
     setLesson(null);
 
-    setShowModal(false);
+    setShow({
+      reservationModal: false,
+      cancellationModal: false,
+      reservationID: "",
+    });
   };
 
   const handleAdd = () => {
@@ -105,7 +110,7 @@ const ReservationModal: React.FC<Props> = props => {
   return (
     <Modal
       className="ReservationModal"
-      show={showModal}
+      show={show.reservationModal}
       onHide={handleClose}
       animation={false}
     >
@@ -118,8 +123,9 @@ const ReservationModal: React.FC<Props> = props => {
             <Calendar
               date={date}
               setDate={setDate}
-              initialDate={moment(thisMonth).toDate()}
+              initialDate={moment(targetMonth).toDate()}
               flexCenter={true}
+              targetMonth={targetMonth}
             />
           </Form.Group>
           <Form.Group>
@@ -191,8 +197,8 @@ export const FormCheckIsRegular: React.FC<IsRegularProps> = props => {
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsRegulars(event.target.checked);
-    console.log(event.target.checked);
-    console.log(typeof event.target.checked);
+    // console.log(event.target.checked);
+    // console.log(typeof event.target.checked);
   };
 
   return (
@@ -257,8 +263,8 @@ export const FormSeatsAvailability: React.FC<SeatsAvailabilityProps> = props => 
     const { regularsOnly, id, capacity, instructorName } = availableLesson;
     const { count } = reservationPackage(reservations, id);
 
-    console.log(id, "id");
-    console.log(count, "people reserved");
+    // console.log(id, "id");
+    // console.log(count, "people reserved");
 
     const remainingSeats = capacity - count;
 
@@ -352,8 +358,8 @@ export const FormTimeSelect: React.FC<TimeSelectProps> = props => {
 
   availableTimes.sort(earliestTimeFirstLateLast);
 
-  console.log(availableLessons);
-  console.log(availableTimes);
+  // console.log(availableLessons);
+  // console.log(availableTimes);
 
   return (
     <Form.Control

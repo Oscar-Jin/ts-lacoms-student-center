@@ -5,13 +5,16 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { ReservationState } from "../../draft/Reservation";
+import { showModal } from "../module/ReservationModule";
 
 type Props = {
   monthSelect: "thisMonth" | "nextMonth";
+  show: showModal;
+  setShow: React.Dispatch<React.SetStateAction<showModal>>;
 };
 
 const CardController: React.FC<Props> = props => {
-  const { monthSelect } = props;
+  const { monthSelect, show, setShow } = props;
   const { uid } = useParams();
 
   const thisYear = moment().year();
@@ -37,6 +40,8 @@ const CardController: React.FC<Props> = props => {
               reservation={reservation}
               monthSelect={monthSelect}
               key={reservation.id}
+              show={show}
+              setShow={setShow}
             />
           ))}
         </div>
@@ -52,6 +57,8 @@ const CardController: React.FC<Props> = props => {
               reservation={reservation}
               monthSelect={monthSelect}
               key={reservation.id}
+              show={show}
+              setShow={setShow}
             />
           ))}
         </div>

@@ -157,6 +157,13 @@ export class Reservation {
     ticket.cloudUpdateUsedOn(reservation.id);
   }
 
+  public cloudUpdate(state: ReservationState) {
+    this.state = state;
+    this.updatedOn = new Date().toISOString();
+    this.updatedBy = "student";
+    Firestore.reservations.doc(this.id).update(this.toObject());
+  }
+
   public toObject() {
     return {
       lastName_hiragana: this.lastName_hiragana,

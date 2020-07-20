@@ -13,7 +13,7 @@ const NavBar = () => {
           <img src={logo} width="29" height="29" alt="logo" />
           <LogoTitle>LACOMS Student Center</LogoTitle>
         </Navbar.Brand>
-        <DevBadge>開発中</DevBadge>
+        <DevBadge className="text-muted">開発中</DevBadge>
       </Container>
     </Navbar>
   );

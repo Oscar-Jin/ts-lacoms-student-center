@@ -13,23 +13,26 @@ type Props = {
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   initialDate: Date;
   flexCenter?: boolean;
+  targetMonth: string;
 };
 
 const Calendar: React.FC<Props> = props => {
-  const { date, setDate, initialDate } = props;
+  const { date, setDate, initialDate, targetMonth } = props;
 
   const flexCenter = props.flexCenter ? " d-flex justify-content-center" : "";
 
-  const modifiers = {
-    saturdays: { daysOfWeek: [6] },
-    sundays: { daysOfWeek: [0] },
-  };
+  const disabledDays = datesToDisable(targetMonth);
 
-  const modifiersStyles = {
-    saturdays: { color: "dodgerblue" },
-    sundays: { color: "salmon" },
-    selected: { color: "white" },
-  };
+  // const modifiers = {
+  //   saturdays: { daysOfWeek: [6] },
+  //   sundays: { daysOfWeek: [0] },
+  // };
+
+  // const modifiersStyles = {
+  //   saturdays: { color: "dodgerblue" },
+  //   sundays: { color: "salmon" },
+  //   selected: { color: "white" },
+  // };
 
   // const disabledDays = {
   //   daysOfWeek: [0, 6],
@@ -50,10 +53,11 @@ const Calendar: React.FC<Props> = props => {
           locale={"ja"}
           localeUtils={MomentLocaleUtils}
           selectedDays={date}
-          modifiers={modifiers}
-          modifiersStyles={modifiersStyles}
+          // modifiers={modifiers}
+          // modifiersStyles={modifiersStyles}
           initialMonth={initialDate}
           firstDayOfWeek={1}
+          disabledDays={disabledDays}
           canChangeMonth={false}
           onDayClick={handleDayClick}
         />
@@ -66,3 +70,17 @@ const Calendar: React.FC<Props> = props => {
 };
 
 export default Calendar;
+
+const datesToDisable = (targetMonth: string) => {
+  if (targetMonth === moment().date(1).format("YYYY-MM-DD")) {
+    const today = moment().date();
+    const shouldDisable: Date[] = [];
+    for (let i = 1; i < today; i++) {
+      shouldDisable.push(moment().date(i).toDate());
+    }
+    return shouldDisable;
+  } else {
+    console.log(undefined);
+    return undefined;
+  }
+};

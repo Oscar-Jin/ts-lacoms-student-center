@@ -1,16 +1,26 @@
 import React from "react";
+import moment from "moment";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { DaysOfWeek, LessonName } from "../../draft/Timetable";
+import { useSelector } from "react-redux";
 
 const TimeTableView = props => {
-  const { timetable = {} } = props;
-  if (timetable === undefined) {
+  const { monthSelect } = props;
+  if (monthSelect === undefined) {
     throw new Error("props must be provided");
   }
+
+  const targetMonth =
+    monthSelect === "thisMonth"
+      ? moment().date(1).format("YYYY-MM-DD")
+      : moment().add(1, "month").date(1).format("YYYY-MM-DD");
+
+  const allTimetables = useSelector(state => state.timetables);
+  const timetable = allTimetables.find(T => T.iso8601 === targetMonth) || {};
 
   const daysOfWeek = Object.keys(DaysOfWeek);
   const titles = [
@@ -33,17 +43,36 @@ const TimeTableView = props => {
   ];
 
   return (
-    <div>
-      <h5 className="mb-3">7月の時間割：</h5>
-      <Row xs={1} lg={2}>
-        <Col>
-          <Tabs defaultActiveKey="monday" transition={false} variant="pills">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-start",
+        marginBottom: "1rem",
+      }}
+    >
+      <br />
+      <Row>
+        <Col className="shadow-sm bg-white p-3 shadow">
+          <h5
+            className="mb-3 p-2 pl-3"
+            style={
+              monthSelect === "thisMonth"
+                ? { borderLeft: "3px solid dodgerblue" }
+                : { borderLeft: "3px solid #7fdb2e" }
+            }
+          >
+            {monthSelect === "thisMonth"
+              ? moment().month() + 1
+              : moment().add(1, "month").month() + 1}
+            月時間割：
+          </h5>
+          <Tabs defaultActiveKey="monday">
             {daysOfWeek.map((dayOfWeek, index) => {
               let timeStrings = ["XX:XX"];
               return (
                 <Tab eventKey={dayOfWeek} title={titles[index]} key={dayOfWeek}>
                   <Table striped responsive size="sm" className="mt-3">
-                    <caption>{englishTitles[index]}</caption>
+                    {/* <caption>{englishTitles[index]}</caption> */}
                     <tbody>
                       {timetable[dayOfWeek] &&
                         timetable[dayOfWeek].map((schedule, i) => {

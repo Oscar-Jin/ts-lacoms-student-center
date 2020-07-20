@@ -41,13 +41,13 @@ export const findAvailableLessonBy = (
 
   const availableLessons = secondFiltered.filter(LESSON => {
     const { count } = reservationPackage(reservations, LESSON.id);
-    console.log(count, "count availableLessons");
+    // console.log(count, "count availableLessons");
     return count < LESSON.capacity;
   });
 
   availableLessons.sort(openFirstRegularsLast);
 
-  console.log("availableLessons", availableLessons);
+  // console.log("availableLessons", availableLessons);
 
   return availableLessons[0];
 };

@@ -53,8 +53,8 @@ export const isNewStudentOrIsFirstLesson = (
     isFirstLesson = false;
   }
 
-  console.log("isNewStudent", isNewStudent);
-  console.log("isFirstLesson", isFirstLesson);
+  // console.log("isNewStudent", isNewStudent);
+  // console.log("isFirstLesson", isFirstLesson);
 
   return { isNewStudent, isFirstLesson };
 };
