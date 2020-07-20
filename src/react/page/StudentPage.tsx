@@ -42,7 +42,7 @@ const StudentPage = () => {
   return (
     <div className="sky-dive" style={{ minHeight: "100%" }}>
       <NavBar />
-      <Container className="py-5 bg-white shadow">
+      <Container className="pt-4 pb-5 mt-4 bg-white shadow">
         <Name>{latest?.lastName_kanji}</Name>
         <Name>{latest?.firstName_kanji}</Name>
         {display(latest?.status)}
@@ -61,7 +61,7 @@ const StudentPage = () => {
           </Tab>
         </Tabs>
       </Container>
-      <Container className="mt-3 py-5 px-3 ">
+      <Container className=" py-5 px-3 ">
         <TimeTableView monthSelect={monthSelect} />
       </Container>
     </div>
