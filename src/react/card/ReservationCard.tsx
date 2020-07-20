@@ -12,22 +12,20 @@ type Props = {
   setShow: React.Dispatch<React.SetStateAction<showModal>>;
 };
 
+const blueBGC = {
+  backgroundImage: "linear-gradient(30deg, #045de9 0%, #00adff 74%)",
+};
+
+const greenBGC = {
+  backgroundImage: "linear-gradient(30deg, #7fdb2e 0%, #01BAEF 74%)",
+};
+
 const ReservationCard: React.FC<Props> = props => {
   const { reservation, monthSelect, setShow } = props;
 
   return (
     <Card
-      style={
-        monthSelect === "thisMonth"
-          ? {
-              backgroundImage:
-                "linear-gradient(30deg, #045de9 0%, #00adff 74%)",
-            }
-          : {
-              backgroundImage:
-                "linear-gradient(30deg, #7fdb2e 0%, #01BAEF 74%)",
-            }
-      }
+      style={monthSelect === "thisMonth" ? blueBGC : greenBGC}
       className={
         moment().format("YYYY-MM-DD") > reservation.iso8601 ? "translucent" : ""
       }
