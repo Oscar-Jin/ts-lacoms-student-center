@@ -4,6 +4,9 @@ import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import { ReservationState, Reservation } from "../../draft/Reservation";
 import { showModal } from "../module/ReservationModule";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Lesson } from "../../draft/Lesson";
 
 type Props = {
   reservation: Reservation;
@@ -22,6 +25,11 @@ const greenBGC = {
 
 const ReservationCard: React.FC<Props> = props => {
   const { reservation, monthSelect, setShow } = props;
+  const lessons = useSelector((state: RootState) => state.lessons);
+  const lesson =
+    lessons.find(L => L.id === reservation.lessonID) || ({} as Lesson);
+
+  // the problem with this is that reservationTarge (lesson info) could change
 
   return (
     <Card
@@ -32,10 +40,10 @@ const ReservationCard: React.FC<Props> = props => {
     >
       <FlexNoWrap>
         <FlexBox>
-          <Date>{moment(reservation.iso8601).format("M月D日(ddd)")}</Date>
-          <Item>{reservation.timeString}</Item>
-          <Item>{reservation.lessonName}</Item>
-          <Item>{reservation.instructorName}</Item>
+          <Date>{moment(lesson.iso8601).format("M月D日(ddd)")}</Date>
+          <Item>{lesson.timeString}</Item>
+          <Item>{lesson.lessonName}</Item>
+          <Item>{lesson.instructorName}</Item>
           <Item>{localize(reservation.state)}</Item>
         </FlexBox>
         <Button
