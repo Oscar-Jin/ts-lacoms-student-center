@@ -40,7 +40,7 @@ const ReservationCard: React.FC<Props> = props => {
     >
       <FlexNoWrap>
         <FlexBox>
-          <Date>{moment(lesson.iso8601).format("M月D日(ddd)")}</Date>
+          <Date>{reservation.iso8601}</Date>
           <Item>{lesson.timeString}</Item>
           <Item>{lesson.lessonName}</Item>
           <Item>{lesson.instructorName}</Item>
