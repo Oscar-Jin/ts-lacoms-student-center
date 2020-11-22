@@ -16,8 +16,8 @@ const TimeTableView = props => {
 
   const targetMonth =
     monthSelect === "thisMonth"
-      ? moment("2020-07-15").date(1).format("YYYY-MM-DD")
-      : moment("2020-07-15").add(1, "month").date(1).format("YYYY-MM-DD");
+      ? moment("2020-08-31").date(1).format("YYYY-MM-DD")
+      : moment("2020-08-31").add(1, "month").date(1).format("YYYY-MM-DD");
 
   const allTimetables = useSelector(state => state.timetables);
   const timetable = allTimetables.find(T => T.iso8601 === targetMonth) || {};
@@ -62,8 +62,8 @@ const TimeTableView = props => {
             }
           >
             {monthSelect === "thisMonth"
-              ? moment("2020-07-15").month() + 1
-              : moment("2020-07-15").add(1, "month").month() + 1}
+              ? moment("2020-08-31").month() + 1
+              : moment("2020-08-31").add(1, "month").month() + 1}
             月時間割：
           </h5>
           <Tabs defaultActiveKey="monday">

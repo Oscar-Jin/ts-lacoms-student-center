@@ -110,7 +110,7 @@ const generateMessage = (reservation: Reservation) => {
 };
 
 const checkPolicy = (iso8601: string) => {
-  if (moment(iso8601).diff(moment("2020-07-15"), "hours") < 3) {
+  if (moment(iso8601).diff(moment("2020-08-31"), "hours") < 3) {
     return ReservationState.cancelledWithPenalty;
   } else {
     return ReservationState.cancelled;

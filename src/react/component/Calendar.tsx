@@ -72,11 +72,11 @@ const Calendar: React.FC<Props> = props => {
 export default Calendar;
 
 const datesToDisable = (targetMonth: string) => {
-  if (targetMonth === moment("2020-07-15").date(1).format("YYYY-MM-DD")) {
-    const today = moment("2020-07-15").date();
+  if (targetMonth === moment("2020-08-31").date(1).format("YYYY-MM-DD")) {
+    const today = moment("2020-08-31").date();
     const shouldDisable: Date[] = [];
     for (let i = 1; i < today; i++) {
-      shouldDisable.push(moment("2020-07-15").date(i).toDate());
+      shouldDisable.push(moment("2020-08-31").date(i).toDate());
     }
     return shouldDisable;
   } else {

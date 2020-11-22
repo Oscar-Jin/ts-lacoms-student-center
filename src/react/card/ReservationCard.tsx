@@ -35,7 +35,7 @@ const ReservationCard: React.FC<Props> = props => {
     <Card
       style={monthSelect === "thisMonth" ? blueBGC : greenBGC}
       className={
-        moment("2020-07-15").format("YYYY-MM-DD") > reservation.iso8601
+        moment("2020-08-31").format("YYYY-MM-DD") > reservation.iso8601
           ? "translucent"
           : ""
       }

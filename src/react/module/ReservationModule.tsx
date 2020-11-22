@@ -12,8 +12,8 @@ const ReservationModule: React.FC<Props> = props => {
   const { monthSelect } = props;
   const target =
     monthSelect === "thisMonth"
-      ? moment("2020-07-15")
-      : moment("2020-07-15").add(1, "month");
+      ? moment("2020-08-31")
+      : moment("2020-08-31").add(1, "month");
 
   const [show, setShow] = useState<showModal>({
     reservationModal: false,
@@ -28,7 +28,7 @@ const ReservationModule: React.FC<Props> = props => {
       </p>
       <span className="text-muted" hidden={monthSelect === "thisMonth"}>
         {"(予定の入力は" +
-          `${moment("2020-07-15").month() + 1}` +
+          `${moment("2020-08-31").month() + 1}` +
           "月20日から可能となります）"}
       </span>
       <CardController monthSelect={monthSelect} show={show} setShow={setShow} />

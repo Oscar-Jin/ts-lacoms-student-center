@@ -17,11 +17,11 @@ const CardController: React.FC<Props> = props => {
   const { monthSelect, show, setShow } = props;
   const { uid } = useParams();
 
-  const thisYear = moment("2020-07-15").year();
-  const thisMomth = moment("2020-07-15").month() + 1;
+  const thisYear = moment("2020-08-31").year();
+  const thisMomth = moment("2020-08-31").month() + 1;
 
-  const nextYear = moment("2020-07-15").add(1, "month").year();
-  const nextMonth = moment("2020-07-15").add(1, "month").month() + 1;
+  const nextYear = moment("2020-08-31").add(1, "month").year();
+  const nextMonth = moment("2020-08-31").add(1, "month").month() + 1;
 
   const allReservations = useSelector((state: RootState) => state.reservations);
   const filtered = allReservations.filter(
