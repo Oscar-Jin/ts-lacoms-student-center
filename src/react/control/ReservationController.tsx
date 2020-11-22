@@ -16,8 +16,11 @@ type Props = {
 const ReservationController: React.FC<Props> = props => {
   const { monthSelect, show, setShow } = props;
 
-  const thisMonthISO = moment().date(1).format("YYYY-MM-DD");
-  const nextMonthISO = moment().add(1, "month").date(1).format("YYYY-MM-DD");
+  const thisMonthISO = moment("2020-07-15").date(1).format("YYYY-MM-DD");
+  const nextMonthISO = moment("2020-07-15")
+    .add(1, "month")
+    .date(1)
+    .format("YYYY-MM-DD");
 
   const userTickets = useSelector((state: RootState) => state.tickets);
   const unused = userTickets.filter(T => !T.usedOn);
@@ -105,8 +108,8 @@ const ReservationPanel: React.FC<PanelProps> = props => {
       >
         <h4 className="m-3 p-0 text-muted">
           {monthSelect === "thisMonth"
-            ? moment().month() + 1
-            : moment().add(1, "month").month() + 1}
+            ? moment("2020-07-15").month() + 1
+            : moment("2020-07-15").add(1, "month").month() + 1}
           月：残り{unused.length}コマ
         </h4>
         <div className="ml-auto ">
@@ -115,7 +118,9 @@ const ReservationPanel: React.FC<PanelProps> = props => {
             variant="primary"
             onClick={useBundleTicket}
             hidden={unused.length === 0}
-            disabled={monthSelect === "nextMonth" && moment().date() < 20}
+            disabled={
+              monthSelect === "nextMonth" && moment("2020-07-15").date() < 20
+            }
           >
             予定を追加する
           </Button>
@@ -135,7 +140,7 @@ const ReservationPanel: React.FC<PanelProps> = props => {
             onClick={usePriorTicket}
             disabled={
               unused.length > 0 ||
-              (monthSelect === "nextMonth" && moment().date() < 21)
+              (monthSelect === "nextMonth" && moment("2020-07-15").date() < 21)
             }
             hidden={unusedPrior.length === 0}
           >
