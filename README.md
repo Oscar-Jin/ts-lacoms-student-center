@@ -7,7 +7,7 @@ A class scheduling app specifically designed for students. It allows student to 
 
 [Lacoms Student Center](https://preview-student-center.surge.sh)
 
-<img src="https://oscar-jin.surge.sh/static/718e3a1b5d87eda927e6fbbe376a618a/5707d/student-center-3.png>
+<img src="https://oscar-jin.surge.sh/static/718e3a1b5d87eda927e6fbbe376a618a/5707d/student-center-3.png">
 
 ## Install
 
@@ -26,6 +26,7 @@ npm run start
 - React 
 - Firebase 
 - Redux
+- TypeScript
 
 ## Author
 
