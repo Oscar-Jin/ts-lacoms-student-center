@@ -1,44 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Welcome to Lacoms Student Center
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
-## Available Scripts
+A class scheduling app specifically designed for students. It allows student to add or change classes directly from their favorite devices without the hassle of calling / emailing school's office every single time to check whether the space is available or not. 
 
-In the project directory, you can run:
+## Demo
 
-### `npm start`
+[Lacoms Student Center](https://preview-student-center.surge.sh)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img src="https://oscar-jin.surge.sh/static/718e3a1b5d87eda927e6fbbe376a618a/5707d/student-center-3.png>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Install
 
-### `npm test`
+```sh
+npm install
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+```sh
+npm run start
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Built With
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- React 
+- Firebase 
+- Redux
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Author
 
-### `npm run eject`
+👤 **Oscar Jin (Kinchan)**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* Website: https://oscar-jin.surge.sh
+* Github: [@Oscar-Jin](https://github.com/Oscar-Jin)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Licence 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+MIT
